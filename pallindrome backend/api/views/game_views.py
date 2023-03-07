@@ -19,6 +19,11 @@ def game_page(request):
     context = {"detail" : "game page"}
     return Response(context)
 
+def get_pallindrome(S):
+    if(S == S[::-1]):
+        return True
+    else:
+        return False
 
 class startGame(APIView):
     # page which says to start a new game
@@ -71,7 +76,11 @@ class startGame(APIView):
             # updated the new string
             game.string = user_string
             game.save()
-            serializer = GameSerializer(game,many=False)
+        else:
+            game.result = get_pallindrome(game.string)
+            game.save()
+
+        serializer = GameSerializer(game,many=False)
 
         return Response(serializer.data)
 
@@ -92,6 +101,11 @@ def getBoard(request):
         com_string = random.choice(string.ascii_letters)
         game.string += com_string
         game.save()
-        serializer = GameSerializer(game, many=False)
+    else:
+        # len(string) == 6
+        game.result = get_pallindrome(game.string)
+        game.save()
+
+    serializer = GameSerializer(game, many=False)
 
     return Response(serializer.data)

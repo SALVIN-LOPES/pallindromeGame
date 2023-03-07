@@ -12,7 +12,11 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const Game = useSelector((state) => state.Game);
+  const { game } = Game;
+
   const submitHandler = () => {
+    localStorage.setItem("gameInfo", JSON.stringify(game));
     console.log("game started!!");
     dispatch(startGame());
     navigate(`/start`);
