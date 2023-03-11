@@ -5,9 +5,18 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
+import {
+  adminUpdateUserReducer,
+  getAdminUsersReducer,
+  updateUserProfileReducer,
+  userDeleteReducer,
+  userDetailsReducer,
+  userLoginReducer,
+  userRegisterReducer,
+} from "./reducers/userReducers";
 import {
   getGameStringReducer,
+  getUserGamesListReducer,
   startGameReducer,
   updateGameStringReducer,
 } from "./reducers/gameReducers";
@@ -16,6 +25,12 @@ const reducer = combineReducers({
   // user registration
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  getUserListGames: getUserGamesListReducer,
+  getAdminUsers: getAdminUsersReducer,
+  updateUserProfile: updateUserProfileReducer,
+  userDetails: userDetailsReducer,
+  updateAdminUser: adminUpdateUserReducer,
+  userDelete: userDeleteReducer,
 
   // game registration
   Game: startGameReducer,

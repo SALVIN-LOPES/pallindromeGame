@@ -86,6 +86,7 @@ class startGame(APIView):
 
 @api_view(['PUT'])
 def getBoard(request):
+
     data = request.data
         # data = {
         #     id,
@@ -109,3 +110,21 @@ def getBoard(request):
     serializer = GameSerializer(game, many=False)
 
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserGames(request):
+    user = request.user
+    print("user = ",user)
+    games = Game.objects.filter(user=user)
+    if games:
+        serializer = GameSerializer(games,many=True)
+        return Response(serializer.data)
+    return Response({"detail":"There are no games available!!"})
+
+
+
+
+
+

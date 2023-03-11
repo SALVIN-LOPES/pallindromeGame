@@ -8,6 +8,9 @@ import {
   GET_GAME_STRING_REQUEST,
   GET_GAME_STRING_SUCCESS,
   GET_GAME_STRING_FAILED,
+  GET_USER_GAMES_REQUEST,
+  GET_USER_GAMES_SUCCESS,
+  GET_USER_GAMES_FAILED,
 } from "../constants/gameConstants";
 
 export const startGameReducer = (state = {}, action) => {
@@ -51,6 +54,22 @@ export const getGameStringReducer = (state = {}, action) => {
       return { loading: false, success: true, game: action.payload };
 
     case GET_GAME_STRING_FAILED:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const getUserGamesListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_USER_GAMES_REQUEST:
+      return { loading: true };
+
+    case GET_USER_GAMES_SUCCESS:
+      return { loading: false, success: true, usergames: action.payload };
+
+    case GET_USER_GAMES_FAILED:
       return { loading: false, error: action.payload };
 
     default:
